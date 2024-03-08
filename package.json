@@ -1,0 +1,34 @@
+{
+  "name": "5-namaste-react",
+  "version": "1.0.0",
+  "description": "This is namaste react by AKSHAY SAINI done by (ankush makkar)",
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html",
+    "test": "jesto"
+  },
+  "repository": {
+    "type": "git",
+    "url": "(https://github.com/makkarankush68/Namaste-React.git)"
+  },
+  "keywords": [
+    "namaste",
+    "react",
+    "ankush",
+    "makkar"
+  ],
+  "author": "ANKUSH MAKKAR",
+  "license": "ISC",
+  "devDependencies": {
+    "parcel": "^2.12.0",
+    "process": "^0.11.10"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.22.2"
+  },
+  "browsersList": [
+    "last 2 version"
+  ]
+}
