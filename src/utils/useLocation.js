@@ -3,18 +3,19 @@ const useLocation = (props) => {
   console.log(props);
   const [coords, setCoords] = useState({ lat: 0, long: 0 });
   useEffect(() => {
-    if (!props) fetchFromIp();
+    if (localStorage.getItem("user-coords-z1a")) {
+      const data = JSON.parse(localStorage.getItem("user-coords-z1a"));
+      setCoords({
+        lat: data.lat,
+        long: data.long,
+      });
+    } else if (!props)
+      setCoords({
+        lat: 28.704,
+        long: 77.10249019,
+      });
     else getLocation();
   }, [props]);
-  async function fetchFromIp() {
-    let response = await fetch("http://ip-api.com/json/");
-    let data = await response.json();
-    const UserCoords = {
-      lat: data.lat,
-      long: data.lon,
-    };
-    setCoords(UserCoords);
-  }
   const getLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -27,13 +28,13 @@ const useLocation = (props) => {
           };
           setCoords(UserCoords);
 
-          // sessionStorage.setItem(
-          //   "user-coords",
-          //   JSON.stringify({
-          //     lat: lat,
-          //     long: long,
-          //   })
-          // );
+          localStorage.setItem(
+            "user-coords-z1a",
+            JSON.stringify({
+              lat: lat,
+              long: long,
+            })
+          );
         },
         (err) => alert(err.message)
       );

@@ -19,7 +19,9 @@ function resMenu() {
     avgRating,
     cloudinaryImageId,
     nearestOutletNudge,
-  } = resInfo?.cards[0]?.card?.card?.info;
+  } = resInfo?.cards[0]?.card?.card?.info
+    ? resInfo?.cards[0]?.card?.card?.info
+    : resInfo?.cards[2]?.card?.card?.info;
   function delTime() {
     if (sla.slaString) return sla.slaString;
     else if (
@@ -51,6 +53,12 @@ function resMenu() {
     )
       return resInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]
         .card.card.carousel;
+    if (
+      resInfo?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1].card.card
+        .itemCards
+    )
+      return resInfo?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]
+        .card.card.itemCards;
   };
   return (
     <div className="menu-container">

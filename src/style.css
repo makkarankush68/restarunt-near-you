@@ -17,10 +17,9 @@
   z-index: 100;
   position: fixed;
   top: 0;
-  width: 100%;
+  width: 100vw;
   display: flex;
   justify-content: space-around;
-  /* flex-wrap: wrap; */
   box-shadow: 0px 0px 10px;
   align-items: center;
   padding: 10px 10px;
@@ -321,15 +320,84 @@ a {
   text-decoration: none;
 }
 
-/* media querries */
+/** media querries */
 @media screen and (max-width: 700px) {
+  .header {
+    width: 100vw;
+    display: flex;
+    justify-content:center;
+    /* flex-wrap: wrap; */
+    height: 50px;
+    padding: 0px;
+  }
   .dummy-header {
-    transform: scale(0.9);
+    height: 50px;
   }
   .logo-container {
-    transform: scale(0.9);
+    width: 30px;
+    height: 30px;
+    transform: scale(1.2);
+  }
+  .logo {
+    width: 30px;
+    height: 30px;
   }
   .nav-items {
-    transform: scale(0.9);
+    width: 70%;
+    padding: 0px;
+    margin: 0px;
+    transform: scale(0.5);
+  }
+  .grocery-link{
+    display: none;
+  }
+  .filters{
+    top: 55px;
+    transform: scale(1.1);
+  }
+  .search {
+    gap: 0px;
+  }
+  .search-box {
+    width: 80%;
+    transform: scale(0.82);
+    padding: 5px;
+  }
+  .search-box::placeholder{
+    font-size:11px;
+  }
+  .search-box:focus {
+    transform: scale(0.8);
+  }
+  .filter-btn {
+    transform: scale(0.8);
+    margin: 0;
+    padding: 3px;
+  }
+  .reset-btn{
+    display: none;
+  }
+  .menu-container {
+    padding: 10px;
+  }
+  .res-menu-info {
+    font-size: 14px;
+    padding: 10px;
+    justify-content: space-evenly;
+    flex-wrap: wrap-reverse;
+  }
+  .res-menu-img{
+    height: 160px;
+    width: 160px;
+  }
+  .res-dishes-container span {
+    font-size: 23px;
+  }
+  .res-dishes-container{
+    padding: 10px;
+    font-size: small;
+  }
+  .dish-info{
+    width: 95%;
   }
 }

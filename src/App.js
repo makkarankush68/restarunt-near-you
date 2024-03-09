@@ -18,12 +18,6 @@ const Grocery = lazy(() => {
 
 // whole app structure
 const AppLayout = () => {
-  const isMobile = window.matchMedia("(max-width: 767px)").matches;
-  if (isMobile) {
-    return <h1>Please Switch to Desktop View</h1>;
-  } else {
-    console.log("User is accessing the website from a desktop device");
-  }
   return (
     <div className="app">
       <Header />

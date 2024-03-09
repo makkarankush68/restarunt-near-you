@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import ShimmerUi from "./ShimmerUi";
 import useOnlineStatus from "../utils/useOnlineStatus";
 import useLocation from "../utils/useLocation";
+import { API_KEY_CORS } from "../utils/constants";
 
 const Body = () => {
   const [MainList, setMainList] = useState([]);
@@ -15,7 +16,8 @@ const Body = () => {
   useEffect(() => {
     fetchdata(); // and update reslist state variable
   }, [lat]);
-  if (onlineStatus == false) return <h1 style={{textAlign:"center"}}>No Internet Connection</h1>;
+  if (onlineStatus == false)
+    return <h1 style={{ textAlign: "center" }}>No Internet Connection</h1>;
   async function fetchdata() {
     let response;
     try {
@@ -28,7 +30,7 @@ const Body = () => {
         `https://proxy.cors.sh/https://www.swiggy.com/dapi/restaurants/list/v5?lat=${lat}&lng=${long}&page_type=DESKTOP_WEB_LISTING`,
         {
           headers: {
-            "x-cors-api-key": "temp_9a16c0228364623f931bce8f803ee55d",
+            "x-cors-api-key": API_KEY_CORS,
           },
         }
       );
@@ -49,9 +51,13 @@ const Body = () => {
     });
     setLisOfRes(filterRes);
   }
-  console.log("rendering body");
+  console.log("rendering body" + lat + " " + long);
+  const isMobile = window.matchMedia("(max-width: 767px)").matches;
   return (
     <div className="body">
+      {isMobile ?
+        <h5 style={{textAlign:"center"}}>Please Switch to Desktop View</h5>
+        : <></> }
       <div className="filters">
         <div className="search">
           <input
@@ -84,7 +90,7 @@ const Body = () => {
           {"Rated > 4.4"}
         </button>
         <button
-          className="filter-btn"
+          className="filter-btn reset-btn"
           onClick={() => {
             setLisOfRes(MainList);
           }}
@@ -98,7 +104,7 @@ const Body = () => {
             console.log("precise location " + preciseLocate);
           }}
         >
-          UseRealLocation
+          Use Real Location
         </button>
       </div>
       {resOrShim()}
@@ -106,16 +112,7 @@ const Body = () => {
   );
   function resOrShim() {
     if (listOfRes == undefined || listOfRes.length === 0)
-      return (
-        <>
-          {listOfRes == undefined ? (
-            <h1 style={{ textAlign: "center" }}>Trying to Fetch location</h1>
-          ) : (
-            <></>
-          )}
-          <ShimmerUi n={15} />
-        </>
-      );
+      return <ShimmerUi n={15} />;
     else
       return (
         <div className="res-container">
