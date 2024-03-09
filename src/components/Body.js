@@ -8,13 +8,14 @@ const Body = () => {
   const [MainList, setMainList] = useState([]);
   const [listOfRes, setLisOfRes] = useState([]);
   const [searchText, setSearchText] = useState("");
+  const [preciseLocate, setPreciseLocate] = useState(false);
   const onlineStatus = useOnlineStatus();
   /// changes below
-  const { lat, long } = useLocation();
+  const { lat, long } = useLocation(preciseLocate);
   useEffect(() => {
     fetchdata(); // and update reslist state variable
   }, [lat]);
-  if (onlineStatus == false) return <h1>NO Internet Connection</h1>;
+  if (onlineStatus == false) return <h1 style={{textAlign:"center"}}>No Internet Connection</h1>;
   async function fetchdata() {
     let response;
     try {
@@ -33,9 +34,12 @@ const Body = () => {
       );
     }
     let data = await response.json();
-    let restaurants =
-      data?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
-        ?.restaurants;
+    let restaurants = data?.data?.cards[1]?.card?.card?.gridElements
+      ?.infoWithStyle?.restaurants
+      ? data?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
+          ?.restaurants
+      : data?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle
+          ?.restaurants;
     setMainList(restaurants);
     setLisOfRes(restaurants);
   }
@@ -65,7 +69,6 @@ const Body = () => {
           <button
             className="filter-btn"
             onClick={() => {
-              console.log(searchText);
               FilterandUpdate();
             }}
           >
@@ -76,7 +79,6 @@ const Body = () => {
           className="filter-btn"
           onClick={() => {
             setLisOfRes(MainList.filter((res) => res.info.avgRating >= 4.4));
-            console.log(MainList);
           }}
         >
           {"Rated > 4.4"}
@@ -85,10 +87,18 @@ const Body = () => {
           className="filter-btn"
           onClick={() => {
             setLisOfRes(MainList);
-            console.log(listOfRes);
           }}
         >
           Reset
+        </button>
+        <button
+          className="filter-btn"
+          onClick={() => {
+            setPreciseLocate(true);
+            console.log("precise location " + preciseLocate);
+          }}
+        >
+          UseRealLocation
         </button>
       </div>
       {resOrShim()}

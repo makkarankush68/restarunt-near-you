@@ -20,13 +20,6 @@ function resMenu() {
     cloudinaryImageId,
     nearestOutletNudge,
   } = resInfo?.cards[0]?.card?.card?.info;
-  // changing data
-  const itemList = resInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR
-    ?.cards[1].card.card.itemCards
-    ? resInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1].card.card
-        .itemCards
-    : resInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2].card.card
-        .itemCards;
   function delTime() {
     if (sla.slaString) return sla.slaString;
     else if (
@@ -37,6 +30,28 @@ function resMenu() {
         ?.slaString;
     else return "N/A";
   }
+  // changing data
+  console.log(resInfo);
+  const itemList = () => {
+    if (
+      resInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1].card.card
+        .itemCards
+    )
+      return resInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]
+        .card.card.itemCards;
+    else if (
+      resInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2].card.card
+        .itemCards
+    )
+      return resInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]
+        .card.card.itemCards;
+    else if (
+      resInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1].card.card
+        .carousel
+    )
+      return resInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]
+        .card.card.carousel;
+  };
   return (
     <div className="menu-container">
       <div className="res-menu-info">
@@ -55,7 +70,7 @@ function resMenu() {
       </div>
       <div className="res-dishes-container">
         <span>Recommended :</span>
-        <ItemList itemList={itemList} />
+        <ItemList itemList={itemList()} />
       </div>
     </div>
   );
@@ -67,13 +82,20 @@ function ItemList(props) {
   if (itemList === undefined)
     return <h1>Undefined data returned from api try another restaurant</h1>;
   else {
-    return itemList.map((item) => <ItemCard key={item?.card?.info?.id} info={item} />);
+    return itemList.map((item) => (
+      <ItemCard
+        key={item?.card?.info?.id ? item?.card?.info?.id : item?.dish?.info?.id}
+        info={item}
+      />
+    ));
   }
 }
 
 function ItemCard(props) {
-  const { name, description, imageId, price, defaultPrice, id } =
-    props?.info?.card?.info;
+  const { name, description, imageId, price, defaultPrice, id } = props?.info
+    ?.card?.info
+    ? props?.info?.card?.info
+    : props?.info?.dish?.info;
   return (
     <>
       <div className="menu-dish">
