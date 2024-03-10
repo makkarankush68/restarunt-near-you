@@ -9,10 +9,10 @@ const Body = () => {
   const [MainList, setMainList] = useState([]);
   const [listOfRes, setLisOfRes] = useState([]);
   const [searchText, setSearchText] = useState("");
-  const [preciseLocate, setPreciseLocate] = useState(false);
   const onlineStatus = useOnlineStatus();
   /// changes below
-  const { lat, long } = useLocation(preciseLocate);
+  const { coords, setPreciseLocate } = useLocation(false);
+  const { lat, long } = coords;
   useEffect(() => {
     fetchdata(); // and update reslist state variable
   }, [lat]);
@@ -55,9 +55,11 @@ const Body = () => {
   const isMobile = window.matchMedia("(max-width: 767px)").matches;
   return (
     <div className="body">
-      {isMobile ?
-        <h5 style={{textAlign:"center"}}>Please Switch to Desktop View</h5>
-        : <></> }
+      {isMobile ? (
+        <h5 style={{ textAlign: "center" }}>Please Switch to Desktop View</h5>
+      ) : (
+        <></>
+      )}
       <div className="filters">
         <div className="search">
           <input
@@ -101,7 +103,7 @@ const Body = () => {
           className="filter-btn"
           onClick={() => {
             setPreciseLocate(true);
-            console.log("precise location " + preciseLocate);
+            console.log("precise location on");
           }}
         >
           Use Real Location

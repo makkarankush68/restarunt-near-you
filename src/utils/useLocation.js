@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 const useLocation = (props) => {
+  const [preciseLocate, setPreciseLocate] = useState(props);
   console.log(props);
   const [coords, setCoords] = useState({ lat: 0, long: 0 });
   useEffect(() => {
@@ -9,13 +10,13 @@ const useLocation = (props) => {
         lat: data.lat,
         long: data.long,
       });
-    } else if (!props)
+    } else if (!preciseLocate)
       setCoords({
         lat: 28.704,
         long: 77.10249019,
       });
     else getLocation();
-  }, [props]);
+  }, [preciseLocate]);
   const getLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -41,6 +42,12 @@ const useLocation = (props) => {
     } else alert("no location");
   };
   console.log(coords.lat + " " + coords.long + " returned");
-  return coords;
+  return {
+    coords,
+    setPreciseLocate: (i) => {
+      console.log("setcalled " + i);
+      setPreciseLocate(i);
+    },
+  };
 };
 export default useLocation;
