@@ -3,26 +3,31 @@ import ReactDOM from "react-dom/client";
 import Header from "./components/Header";
 import Body from "./components/Body";
 import About from "./components/About";
-import Contact from "./components/Contact";
 import Error from "./components/Error";
-import ResMenu from "./components/ResMenu";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import ShimmerUi from "./components/ShimmerUi";
 
-// import Grocery from "./components/Grocery";
-// instaed use dymanic bundling lazy loading
-
-const Grocery = lazy(() => {
-  return import("./components/Grocery");
+const Cart = lazy(() => {
+  return import("./components/Cart");
 });
-
+const ResMenu = lazy(() => {
+  return import("./components/ResMenu");
+});
+const About = lazy(() => {
+  return import("./components/About");
+});
+/// redux
+import { Provider } from "react-redux";
+import appStore from "./utils/appStore";
 // whole app structure
 const AppLayout = () => {
   return (
-    <div className="app">
-      <Header />
-      <Outlet />
-    </div>
+    <Provider store={appStore}>
+      <div className="app">
+        <Header />
+        <Outlet />
+      </div>
+  </Provider>
   );
 };
 
@@ -38,21 +43,25 @@ const appRouter = createBrowserRouter([
       },
       {
         path: "/about",
-        element: <About />,
-      },
-      {
-        path: "/contact",
-        element: <Contact />,
+        element: (
+          <Suspense fallback={<ShimmerUi n={1} />}>
+            <About />
+          </Suspense>
+        ),
       },
       {
         path: "/res/:resId",
-        element: <ResMenu />,
-      },
-      {
-        path: "/grocery",
         element: (
           <Suspense fallback={<ShimmerUi n={1} />}>
-            <Grocery />
+            <ResMenu />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/cart",
+        element: (
+          <Suspense fallback={<ShimmerUi n={1} />}>
+            <Cart />
           </Suspense>
         ),
       },

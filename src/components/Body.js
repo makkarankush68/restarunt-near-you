@@ -1,4 +1,4 @@
-import ResCard from "./ResCard";
+import ResCard , {withExtraLabel} from "./ResCard";
 import { useEffect, useState } from "react";
 import ShimmerUi from "./ShimmerUi";
 import useOnlineStatus from "../utils/useOnlineStatus";
@@ -10,7 +10,7 @@ const Body = () => {
   const [listOfRes, setLisOfRes] = useState([]);
   const [searchText, setSearchText] = useState("");
   const onlineStatus = useOnlineStatus();
-  /// changes below
+  /// Location changes below
   const { coords, setPreciseLocate } = useLocation(false);
   const { lat, long } = coords;
   useEffect(() => {
@@ -19,6 +19,7 @@ const Body = () => {
   if (onlineStatus == false)
     return <h1 style={{ textAlign: "center" }}>No Internet Connection</h1>;
   async function fetchdata() {
+    setLisOfRes(undefined);
     let response;
     try {
       // throw new Error('yo');
@@ -51,7 +52,8 @@ const Body = () => {
     });
     setLisOfRes(filterRes);
   }
-  console.log("rendering body" + lat + " " + long);
+  /// extra label
+  const WithLabelComponent = withExtraLabel(ResCard);
   const isMobile = window.matchMedia("(max-width: 767px)").matches;
   return (
     <div className="body">
@@ -106,7 +108,7 @@ const Body = () => {
             console.log("precise location on");
           }}
         >
-          Use Real Location
+          Use Location
         </button>
       </div>
       {resOrShim()}
@@ -119,6 +121,18 @@ const Body = () => {
       return (
         <div className="res-container">
           {listOfRes.map((res) => {
+            if (res?.info?.badgesV2?.entityBadges?.imageBased?.badgeObject) {
+              const desc =
+                res?.info?.badgesV2?.entityBadges?.imageBased?.badgeObject[0]
+                  ?.attributes.description;
+              return (
+                <WithLabelComponent
+                  key={res?.info?.id}
+                  resData={res}
+                  desc={desc}
+                />
+              );
+            }
             return <ResCard key={res?.info?.id} resData={res} />;
           })}
         </div>

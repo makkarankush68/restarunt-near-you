@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
+
 const useLocation = (props) => {
   const [preciseLocate, setPreciseLocate] = useState(props);
-  console.log(props);
   const [coords, setCoords] = useState({ lat: 0, long: 0 });
   useEffect(() => {
     if (localStorage.getItem("user-coords-z1a")) {
@@ -13,10 +13,11 @@ const useLocation = (props) => {
     } else if (!preciseLocate)
       setCoords({
         lat: 28.704,
-        long: 77.10249019,
+        long: 77.1024,
       });
     else getLocation();
   }, [preciseLocate]);
+
   const getLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -37,17 +38,17 @@ const useLocation = (props) => {
             })
           );
         },
-        (err) => alert(err.message)
+        (err) => alert(err.message + "\nRefresh Page and Try again ✅")
       );
-    } else alert("no location");
+    } else alert("No location support");
   };
   console.log(coords.lat + " " + coords.long + " returned");
   return {
     coords,
     setPreciseLocate: (i) => {
-      console.log("setcalled " + i);
       setPreciseLocate(i);
     },
   };
 };
+
 export default useLocation;

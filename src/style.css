@@ -17,14 +17,14 @@
   z-index: 100;
   position: fixed;
   top: 0;
-  width: 100vw;
+  width: 100%;
   display: flex;
   justify-content: space-around;
   box-shadow: 0px 0px 10px;
   align-items: center;
   padding: 10px 10px;
   backdrop-filter: blur(6px);
-  height: 100px;
+  height: 100px ;
 }
 .dummy-header {
   height: 100px;
@@ -75,7 +75,7 @@
   background-color: rgba(0, 0, 0, 0.313);
   z-index: 100;
   position: sticky;
-  top: 105px;
+  top: 100px;
   display: flex;
   justify-content: space-evenly;
   backdrop-filter: blur(6px);
@@ -118,9 +118,27 @@
   display: flex;
   flex-wrap: wrap;
 }
+.res-top-div{
+  position: relative;
+}
+.res-top-label{
+  z-index: 10;
+  position: absolute;
+  top : 18px;
+  background-color: black;
+  color: whitesmoke;
+  padding: 5px;
+  border-radius: 10px;
+  text-transform: uppercase;
+}
+.res-top-label:hover {
+  box-shadow: 0px 0px 5px black;
+  cursor: pointer;
+}
 .res-card {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   background-color: #f0f0f0;
   padding: 5px;
   width: 250px;
@@ -137,16 +155,9 @@
   transform: scale(1.05);
   cursor: pointer;
 }
-.res-card-text {
-  margin-top: 7px;
-  min-height: 150px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-.res-card-text h3 {
-  font-weight: 600;
-}
+/* .res-card:hover + .res-top-label{
+  transform: scale(1.05);
+} */
 .cousine-text {
   overflow: hidden;
   width: 1010%;
@@ -203,6 +214,8 @@
 }
 /** restraunt details menu */
 .menu-container {
+  width: 82%;
+  margin: auto;
   padding: 20px;
 }
 .res-menu-info {
@@ -214,6 +227,7 @@
   flex-wrap: wrap-reverse;
 }
 .res-menu-text {
+  font-size: 13px;
   padding: 10px;
   display: flex;
   flex-direction: column;
@@ -232,34 +246,42 @@
   padding-left: 12px;
 }
 .res-menu-img {
-  border-radius: 20px;
-  height: 200px;
-}
-.res-dishes-container {
-  background-color: powderblue;
-  margin: 20px;
-  padding: 30px;
+  width: 30%;
+  max-width: 140px;
   border-radius: 20px;
 }
-.res-dishes-container span {
-  font-size: 30px;
-}
-.item-divider {
-  height: 2.3px;
-  background-color: #efefef;
-  width: 95%;
+.allAccords{
   margin: auto;
+  width: 80%;
+  min-width:350px;
+}
+.acord-container {
+  padding: 20px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+.acord-header{
+  background-color: powderblue;
+  border-radius: 20px;
+  font-weight: 900;
+  font-size: 25px;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 20px; 
+  cursor: pointer;
+  box-shadow: 0px 3px 5px;
+}
+.acord-body{ 
+  font-size: 12px;
+  margin-top: 3px;
 }
 .menu-dish {
   display: flex;
-  flex-wrap: wrap-reverse;
-  justify-content: space-between;
   align-items: center;
   padding: 20px 0px;
   border-bottom: 2.3px solid gray;
 }
 .dish-info {
-  width: 80%;
   margin: auto;
   display: flex;
   flex-direction: column;
@@ -273,13 +295,36 @@
   max-width: 95%;
   color: rgb(76, 76, 76);
 }
-.menu-dish img {
-  border-radius: 20px;
-  height: 150px;
-  width: 150px;
+.imag-and-btn{
+  position: relative;
+  /* width: 20%; */
   margin: auto;
 }
-
+.imag-and-btn img{
+  border-radius: 20px;
+  max-width: 120px;
+  min-width: 70px;
+}
+.add-to-cart-btn{
+  position: absolute;
+  right: 50%;
+  transform: translateX(50%);
+  bottom: -10px;
+  padding: 7px;
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0px 0px 10px white;
+}
+.add-to-cart-btn:active{
+  box-shadow: 0px 0px 20px white;
+}
+.cut-price{
+  text-decoration:line-through;
+  font-weight: 300;
+}
 /** About cards */
 .about-container {
   padding: 20px 0px;
@@ -314,7 +359,29 @@
   color: rgb(43, 103, 255);
   text-decoration: underline;
 }
-
+/** Cart */
+.cart-container{
+  text-align: center;
+  margin: 10px;
+  padding: 10px;
+  max-width: 60%;
+  margin: auto;
+  min-width: 320px;
+}
+.cart-container h1{
+  font-size: 25px;
+  font-weight: bold;
+}
+.clear-cart-btn{
+  font-weight: 600;
+  color: rgb(173, 0, 0);
+  border: 2px solid rgb(173, 0, 0);
+  background-color: #8f00006e;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 17px;
+  padding: 10px;
+}
 /** global */
 a {
   text-decoration: none;

@@ -7,11 +7,8 @@ class UserClass extends React.Component {
     this.state = {
       userData: "dummy",
     };
-    //   console.log(" child user constructor");
   }
   async componentDidMount() {
-    // console.log(" child user mounted");
-    //* Api call is done here
     let response = await fetch("https://api.github.com/users/makkarankush68");
     let data = await response.json();
     console.log(data);
@@ -20,13 +17,10 @@ class UserClass extends React.Component {
     });
   }
   componentDidUpdate() {
-    // console.log("component did update");
   }
   componentWillUnmount() {
-    // console.log("component will unmount");
   }
   render() {
-    // console.log("child user renderd");
     if (this.state.userData == "dummy") return <ShimmerUi n={1} />;
     const { name, location, html_url, avatar_url, bio } = this.state.userData;
     return (
