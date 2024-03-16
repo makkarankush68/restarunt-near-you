@@ -9,7 +9,7 @@ const useResMenu = (resId) => {
   const fetchData = async () => {
     let response;
     try {
-      throw new Error("yo");
+      // throw new Error("yo");
       response = await fetch(MENU_URL + resId);
     } catch (err) {
       // alert(err.message);

@@ -15,7 +15,12 @@ function resMenu() {
   //   // setShowIndex();
   // };
   if (resInfo === null) return <ShimmerUi n={1} />;
-
+  const trueResInfo = resInfo?.cards.filter((card) => {
+    return (
+      card?.card?.card?.["@type"] ==
+      "type.googleapis.com/swiggy.presentation.food.v2.Restaurant"
+    );
+  });
   const {
     name,
     locality,
@@ -25,7 +30,7 @@ function resMenu() {
     avgRating,
     cloudinaryImageId,
     nearestOutletNudge,
-  } = resInfo?.cards[0]?.card?.card?.info;
+  } = trueResInfo[0]?.card?.card?.info;
   function delTime() {
     if (sla.slaString) return sla.slaString;
     else if (
@@ -36,8 +41,10 @@ function resMenu() {
         ?.slaString;
     else return "N/A";
   }
+
   // categories
-  const allData = resInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR.cards;
+  const categoryObj = resInfo.cards.filter(cards => cards.groupedCard);
+  const allData = categoryObj[0]?.groupedCard?.cardGroupMap?.REGULAR.cards;
   const categories = allData.filter((c) => {
     return (
       c?.card?.card?.["@type"] ===
