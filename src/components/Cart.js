@@ -38,7 +38,7 @@ function Cart() {
           <div className="cart-checkout">
             <h2 className="cart-info-top">
               <span>Total Items : {cartItems.length}</span>
-              <span>Total Bill : ₹ {totalBill}/-</span>
+              <span>Total Bill : ₹ {totalBill.toFixed(2)}/-</span>
             </h2>
             <br />
             <button className="checkout-btn">Proceed to checkout</button>
