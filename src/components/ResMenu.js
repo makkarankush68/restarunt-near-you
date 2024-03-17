@@ -8,12 +8,7 @@ import React, { useState } from "react";
 function resMenu() {
   const { resId } = useParams();
   const resInfo = useResMenu(resId);
-  // control accordian of each child
   const [showIndex, setShowIndex] = useState(null);
-  // const handleHideAcordBody = () => {
-  //   console.log("clicked");
-  //   // setShowIndex();
-  // };
   if (resInfo === null) return <ShimmerUi n={1} />;
   const trueResInfo = resInfo?.cards.filter((card) => {
     return (
@@ -56,8 +51,9 @@ function resMenu() {
       <div className="res-menu-info">
         <div className="res-menu-text">
           <h1>
-            {name} <span>{`(${avgRating} stars)`}</span>
+            {name}
           </h1>
+          <span className="menu-rating"><span className="menu-stars">⭐⭐⭐⭐⭐</span>{`(${avgRating})`}</span>
           <h2>
             {locality} , {city}
           </h2>

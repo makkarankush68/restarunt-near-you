@@ -1,11 +1,15 @@
 import React, { lazy, Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import Header from "./components/Header";
-import Body from "./components/Body";
 import Error from "./components/Error";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import ShimmerUi from "./components/ShimmerUi";
+import Home from "./components/Home";
+import Footer from "./components/Footer";
 
+const Body = lazy(() => {
+  return import("./components/Body");
+});
 const Cart = lazy(() => {
   return import("./components/Cart");
 });
@@ -15,6 +19,7 @@ const ResMenu = lazy(() => {
 const About = lazy(() => {
   return import("./components/About");
 });
+
 /// redux
 import { Provider } from "react-redux";
 import appStore from "./utils/appStore";
@@ -22,11 +27,10 @@ import appStore from "./utils/appStore";
 const AppLayout = () => {
   return (
     <Provider store={appStore}>
-      <div className="app">
-        <Header />
-        <Outlet />
-      </div>
-  </Provider>
+      <Header />
+      <Outlet />
+      <Footer/>
+    </Provider>
   );
 };
 
@@ -38,7 +42,15 @@ const appRouter = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Body />,
+        element: <Home />,
+      },
+      {
+        path: "/restaurants",
+        element: (
+          <Suspense fallback={<ShimmerUi n={1} />}>
+            <Body />
+          </Suspense>
+        ),
       },
       {
         path: "/about",
@@ -49,7 +61,7 @@ const appRouter = createBrowserRouter([
         ),
       },
       {
-        path: "/res/:resId",
+        path: "/restaurants/res/:resId",
         element: (
           <Suspense fallback={<ShimmerUi n={1} />}>
             <ResMenu />

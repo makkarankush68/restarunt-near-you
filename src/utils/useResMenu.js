@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { API_KEY_CORS, MENU_URL } from "./constants";
+import { API_KEY_CORS, MENU_URL, API_KEY_CORS_2 } from "./constants";
 
 const useResMenu = (resId) => {
   const [resInfo, setResInfo] = useState(null);
@@ -9,15 +9,21 @@ const useResMenu = (resId) => {
   const fetchData = async () => {
     let response;
     try {
-      // throw new Error("yo");
       response = await fetch(MENU_URL + resId);
     } catch (err) {
-      // alert(err.message);
-      response = await fetch(`https://proxy.cors.sh/` + MENU_URL + resId, {
-        headers: {
-          "x-cors-api-key": API_KEY_CORS,
-        },
-      });
+      try {
+        response = await fetch(`https://proxy.cors.sh/` + MENU_URL + resId, {
+          headers: {
+            "x-cors-api-key": API_KEY_CORS,
+          },
+        });
+      } catch (err) {
+        response = await fetch(`https://proxy.cors.sh/` + MENU_URL + resId, {
+          headers: {
+            "x-cors-api-key": API_KEY_CORS_2,
+          },
+        });
+      }
     }
     let jsonData = await response.json();
     setResInfo(jsonData.data);

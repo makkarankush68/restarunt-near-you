@@ -19,7 +19,7 @@ function Categories(props) {
         <span>
           {c?.card?.card?.title} ({itemCards.length})
         </span>
-        <span>⬇️</span>
+        <span>{showItems ? "⬆️" : "⬇️"}</span>
       </div>
       {showItems ? (
         <div className="acord-body">

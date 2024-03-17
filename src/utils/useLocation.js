@@ -38,11 +38,11 @@ const useLocation = (props) => {
             })
           );
         },
-        (err) => alert(err.message + "\nRefresh Page and Try again ✅")
+        (err) => alert(err.message + "\n \nTurn on location from settings ⬆️ \n \nRefresh Page and Try again ✅")
       );
     } else alert("No location support");
   };
-  console.log(coords.lat + " " + coords.long + " returned");
+  // console.log(coords.lat + " " + coords.long + " returned");
   return {
     coords,
     setPreciseLocate: (i) => {
